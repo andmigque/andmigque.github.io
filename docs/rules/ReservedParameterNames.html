@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>README.md</title>
+<title>ReservedParameterNames.md</title>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 
 <style>
@@ -353,6 +353,8 @@ code {
 }
 
 </style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
 <style>
 :root {
   --os-bg: #171717;
@@ -573,55 +575,9 @@ p img[src*="shields.io"] {
   }
 }
 </style>
-<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-<style>
-.os-hub {
-  margin: 8px 0 16px;
-}
-
-.os-hub-group {
-  margin: 28px 0 6px;
-  color: var(--os-gold);
-  font-weight: 700;
-  font-size: 18px;
-}
-
-.os-hub-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 8px 16px;
-  margin: 8px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.os-hub-grid li {
-  margin: 0;
-}
-
-.os-hub-grid a {
-  display: block;
-  padding: 9px 13px;
-  border: 1px solid var(--os-border);
-  border-radius: 6px;
-  background: var(--os-surface);
-  color: var(--os-blue);
-}
-
-.os-hub-grid a:hover {
-  border-color: var(--os-blue);
-  background: var(--os-surface-2);
-  text-decoration: none;
-}
-
-.os-demo-cap {
-  margin: 22px 0 8px;
-  color: var(--os-muted);
-  font-weight: 700;
-}
-</style>
 </head>
 <body>
+<a class="os-home" href="../index.html" style="display:inline-block;margin:0 0 26px;padding:7px 14px;border:1px solid var(--os-border);border-radius:6px;background:var(--os-surface);color:var(--os-blue);text-decoration:none;font-family:&quot;Segoe UI&quot;,system-ui,sans-serif;font-size:14px;">&#8592; Docs home</a>
   <script>
     mermaid.initialize({
       startOnLoad: true,
@@ -630,182 +586,25 @@ p img[src*="shields.io"] {
           : 'default'
     });
   </script>
-<h1 id="sharpdown">Sharpdown</h1>
-<blockquote>
-<p>Polyglot documentation extraction for PowerShell. Sharpdown lifts marker-prefixed comments
-out of C#, SQL, JavaScript, TypeScript, and PowerShell source into Markdown, fencing each
-language declaration so the source file is the document.</p>
-</blockquote>
-<p><img src="https://img.shields.io/badge/PowerShell-7+-5391FE" alt="PowerShell">
-<img src="https://img.shields.io/badge/edition-Core-2b579a" alt="Edition">
-<img src="https://img.shields.io/badge/license-MIT-2ea44f" alt="License"></p>
-
-<nav class="os-hub" aria-label="Documentation">
-<h2 id="documentation">Documentation</h2>
-
-<p class="os-hub-group">Sharpdown</p>
-<ul class="os-hub-grid">
-<li><a href="sharpdown.html">Sharpdown</a></li>
+<h1 id="parameter-names-that-cannot-be-used">Parameter Names That Cannot Be Used</h1>
+<h2 id="-rule">📐 <strong>Rule.</strong></h2>
+<p>PowerShell supplies a common set of parameters to every cmdlet, plus extras added in specific situations. You cannot define your own parameters with these reserved names.</p>
+<h2 id="reserved-names"><strong>Reserved names.</strong></h2>
+<ul>
+<li><code>Confirm</code></li>
+<li><code>Debug</code></li>
+<li><code>ErrorAction</code></li>
+<li><code>ErrorVariable</code></li>
+<li><code>OutBuffer</code></li>
+<li><code>OutVariable</code></li>
+<li><code>WarningAction</code></li>
+<li><code>WarningVariable</code></li>
+<li><code>WhatIf</code></li>
+<li><code>UseTransaction</code></li>
+<li><code>Verbose</code></li>
 </ul>
-
-<p class="os-hub-group">Rules</p>
-<ul class="os-hub-grid">
-<li><a href="rules/ApprovedVerbs.html">Use Only Approved Verbs</a></li>
-<li><a href="rules/CaseInsensitivePreserving.html">Make Cmdlets Case-Insensitive and Case-Preserving</a></li>
-<li><a href="rules/CmdletAttribute.html">Specify the Cmdlet Attribute</a></li>
-<li><a href="rules/CodingParameters.html">Coding Parameters</a></li>
-<li><a href="rules/ConfirmationRequests.html">Support Confirmation Requests</a></li>
-<li><a href="rules/DefiningObjects.html">Defining Objects</a></li>
-<li><a href="rules/DeriveFromCmdletClass.html">Derive from the Cmdlet or PSCmdlet Classes</a></li>
-<li><a href="rules/DeployViaModule.html">Use a Windows PowerShell Module to Deploy Your Cmdlets</a></li>
-<li><a href="rules/DocumentOutputObjects.html">Document Output Objects</a></li>
-<li><a href="rules/ForceParameter.html">Support Force Parameter for Interactive Sessions</a></li>
-<li><a href="rules/IComparable.html">Implement the IComparable Interface</a></li>
-<li><a href="rules/IllegalCmdletNameCharacters.html">Cmdlet Names: Characters That Cannot Be Used</a></li>
-<li><a href="rules/InputFromPipeline.html">Support Input from the Pipeline</a></li>
-<li><a href="rules/InputProcessingMethod.html">Override an Input Processing Method</a></li>
-<li><a href="rules/MiddleOfPipeline.html">Implement for the Middle of a Pipeline</a></li>
-<li><a href="rules/NoRetainedOutputHandles.html">Do Not Retain Handles to Output Objects</a></li>
-<li><a href="rules/ObjectMembersAsParameters.html">Define Object Members to Be Used as Parameters</a></li>
-<li><a href="rules/OutputTypeAttribute.html">Specify the OutputType Attribute</a></li>
-<li><a href="rules/PowerShellPaths.html">Support Windows PowerShell Paths</a></li>
-<li><a href="rules/ProcessRecordMethod.html">Support the ProcessRecord Method</a></li>
-<li><a href="rules/ReservedParameterNames.html">Parameter Names That Cannot Be Used</a></li>
-<li><a href="rules/RobustErrorHandling.html">Handle Errors Robustly</a></li>
-<li><a href="rules/StandardMembers.html">Define Standard Members</a></li>
-<li><a href="rules/UpdateDisplayInformation.html">Update Display Information</a></li>
-<li><a href="rules/WildcardCharacters.html">Support Wildcard Characters</a></li>
-<li><a href="rules/WriteSingleRecords.html">Write Single Records to the Pipeline</a></li>
-</ul>
-
-<p class="os-hub-group">Skills</p>
-<ul class="os-hub-grid">
-<li><a href="skills/sharpdown.html">Sharpdown (skill)</a></li>
-<li><a href="skills/spec-kit.html">Spec Kit</a></li>
-<li><a href="skills/verticalflow.html">Vertical Flow</a></li>
-</ul>
-
-<p class="os-hub-group">Spec</p>
-<ul class="os-hub-grid">
-<li><a href="spec/context-reel-memory.spec.html">context-reel memory spec</a></li>
-</ul>
-
-<p class="os-hub-group">Tests</p>
-<ul class="os-hub-grid">
-<li><a href="tests/sharpdown-module-tests.html">Module.Tests</a></li>
-<li><a href="tests/sharpdown-tests.html">SharpDown.Tests</a></li>
-</ul>
-</nav>
-
-<h2 id="demos">Demos</h2>
-<p class="os-demo-cap">Building the SharpDown docs</p>
-<video width="720" height="480" controls>
-  <source src="./video/SharpDownBuild.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
-<p class="os-demo-cap">Rendering the Markdown output</p>
-<video width="720" height="480" controls>
-  <source src="./video/SharpDownMarkdownOut.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
-<h2 id="install">Install</h2>
-<pre class="hljs"><code><div><span class="hljs-built_in">Install-Module</span> Sharpdown <span class="hljs-literal">-Scope</span> CurrentUser
-</div></code></pre>
-<p>The module targets PowerShell 7 or later on the Core edition. Every function is cross-platform.</p>
-<h2 id="how-it-works">How it works</h2>
-<p>Each language marks a doc comment with a four-character prefix. Lines that start with the marker
-have the marker stripped and pass through as Markdown. Lines matching the language's declaration
-pattern are wrapped in a fenced code block. Everything else falls away.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Language</th>
-<th style="text-align:left">Marker</th>
-<th style="text-align:left">Fence</th>
-<th style="text-align:left">Extensions</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>CSharp</code></td>
-<td style="text-align:left"><code>////</code></td>
-<td style="text-align:left"><code>csharp</code></td>
-<td style="text-align:left"><code>.cs</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>Sql</code></td>
-<td style="text-align:left"><code>----</code></td>
-<td style="text-align:left"><code>sql</code></td>
-<td style="text-align:left"><code>.sql</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>JavaScript</code></td>
-<td style="text-align:left"><code>////</code></td>
-<td style="text-align:left"><code>javascript</code></td>
-<td style="text-align:left"><code>.js</code>, <code>.mjs</code>, <code>.ts</code>, <code>.tsx</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>PowerShell</code></td>
-<td style="text-align:left"><code>####</code></td>
-<td style="text-align:left"><code>powershell</code></td>
-<td style="text-align:left"><code>.ps1</code>, <code>.psm1</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="quick-start">Quick start</h2>
-<p>Convert a single source file to Markdown.</p>
-<pre class="hljs"><code><div><span class="hljs-built_in">Import-Module</span> Sharpdown
-<span class="hljs-built_in">ConvertTo-SharpDown</span> <span class="hljs-literal">-Language</span> CSharp <span class="hljs-literal">-Path</span> .\src\Widget.cs <span class="hljs-literal">-OutPath</span> .\Generated\Docs\Widget.md
-</div></code></pre>
-<p>Mirror a source tree.</p>
-<blockquote>
-<p><code>-Recurse</code> walks the tree, skips build output, and rebuilds the folder layout</p>
-</blockquote>
-<p>For HTTP endpoint files where the doc IS the wire contract, suppress the auto-generated
-declaration fences with <code>-API</code>. Only marker lines emit.</p>
-<pre class="hljs"><code><div><span class="hljs-built_in">ConvertTo-SharpDown</span> <span class="hljs-literal">-Language</span> JavaScript <span class="hljs-literal">-Path</span> .\ <span class="hljs-literal">-OutPath</span> .\Generated\Docs\ <span class="hljs-literal">-Recurse</span>
-</div></code></pre>
-<h2 id="functions">Functions</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Function</th>
-<th style="text-align:left">Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>ConvertTo-SharpDown</code></td>
-<td style="text-align:left">Convert a single source file or a tree of sources to Markdown.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="development">Development</h2>
-<p>The suite is Pester 5. The docs are regenerated by the module's own <code>ConvertTo-SharpDown</code>.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Command</th>
-<th style="text-align:left">What it does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>Invoke-Pester .\Tests</code></td>
-<td style="text-align:left">Run the Pester 5 unit suite.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>Test-ModuleManifest .\Sharpdown.psd1</code></td>
-<td style="text-align:left">Validate the manifest.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>ConvertTo-SharpDown -Language PowerShell -Path . -OutPath .\docs -Recurse</code></td>
-<td style="text-align:left">Regenerate the SharpDown Markdown under <code>docs</code>.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="license">License</h2>
-<p>MIT. See <a href="LICENSE">LICENSE</a>.</p>
+<h2 id="why"><strong>Why.</strong></h2>
+<p>These are the common parameter names. PowerShell owns them. Reusing one collides with the behavior the runtime already binds to that name.</p>
 
 </body>
 </html>

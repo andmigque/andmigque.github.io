@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>context-reel.memory.spec.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --os-bg: #171717;
+  --os-surface: #202020;
+  --os-surface-2: #252525;
+  --os-border: #3b3b3b;
+  --os-text: #e8e4dc;
+  --os-muted: #b8b2a7;
+  --os-gold: #dca657;
+  --os-blue: #369fff;
+  --os-purple: #d2a8ff;
+  --os-red: #c22514;
+  --os-green: #35a853;
+  --os-code: #111111;
+}
+
+html {
+  background: var(--os-bg);
+}
+
+body {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 42px 28px 80px;
+  background: var(--os-bg);
+  color: var(--os-text);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--os-gold);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+h1 {
+  margin: 0 0 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--os-border);
+  font-size: clamp(34px, 5vw, 58px);
+}
+
+h2 {
+  margin: 44px 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--os-border);
+  font-size: 28px;
+}
+
+h3 {
+  margin: 32px 0 12px;
+  font-size: 20px;
+}
+
+p {
+  max-width: 86ch;
+  margin: 0 0 18px;
+}
+
+a {
+  color: var(--os-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+blockquote {
+  margin: 22px 0;
+  padding: 14px 18px;
+  border-left: 5px solid var(--os-blue);
+  background: var(--os-surface);
+  color: var(--os-text);
+}
+
+blockquote p {
+  margin: 0;
+}
+
+hr {
+  height: 1px;
+  margin: 34px 0;
+  border: 0;
+  background: var(--os-border);
+}
+
+pre {
+  margin: 20px 0 24px;
+  padding: 22px 24px;
+  border: 1px solid var(--os-border);
+  border-radius: 6px;
+  background: var(--os-code);
+  color: var(--os-text);
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+pre code {
+  color: inherit;
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+:not(pre) > code {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--os-surface-2);
+  color: var(--os-gold);
+  font-family: Consolas, "Cascadia Code", monospace;
+}
+
+table {
+  width: auto;
+  max-width: 100%;
+  margin: 22px 0 30px;
+  border-collapse: collapse;
+  background: transparent;
+}
+
+th {
+  color: var(--os-text);
+  font-weight: 700;
+}
+
+th,
+td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--os-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+td {
+  color: var(--os-muted);
+}
+
+ul,
+ol {
+  margin: 14px 0 24px 24px;
+  padding: 0;
+}
+
+li {
+  margin: 6px 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+p img[src*="shields.io"] {
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.hljs {
+  background: transparent;
+  color: var(--os-text);
+}
+
+.hljs-built_in,
+.hljs-title,
+.hljs-section {
+  color: var(--os-blue);
+}
+
+.hljs-literal,
+.hljs-keyword,
+.hljs-selector-tag {
+  color: var(--os-purple);
+}
+
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet {
+  color: var(--os-green);
+}
+
+.hljs-number,
+.hljs-params,
+.hljs-type,
+.hljs-attribute {
+  color: var(--os-gold);
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #7f7f7f;
+}
+
+@media (max-width: 720px) {
+  body {
+    padding: 26px 18px 64px;
+    font-size: 15px;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  pre {
+    padding: 18px;
+  }
+}
+</style>
+</head>
+<body>
+<a class="os-home" href="../index.html" style="display:inline-block;margin:0 0 26px;padding:7px 14px;border:1px solid var(--os-border);border-radius:6px;background:var(--os-surface);color:var(--os-blue);text-decoration:none;font-family:&quot;Segoe UI&quot;,system-ui,sans-serif;font-size:14px;">&#8592; Docs home</a>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="️-context-reel-memory-spec">🎞️ context-reel memory spec</h1>
+<blockquote>
+<p>A WebUI for the Memory data store.
+This will piggy back off of the editor and chat views, exposing the memory functions to the UI.</p>
+</blockquote>
+<p>This is a design doc for one feature.
+This is for a view that browses and adds agent memories.</p>
+<hr>
+<h2 id="-contents"><span style="color:#ffaa24">🧭 Contents</span></h2>
+<ul>
+<li>Status</li>
+<li>Document Type</li>
+<li>Context</li>
+<li>Vocabulary</li>
+<li>What The Reference Does</li>
+<li>Goals</li>
+<li>Non-Goals</li>
+<li>Proposed Design</li>
+<li>Requirements</li>
+</ul>
+<hr>
+<h2 id="-status"><span style="color:#ffaa24">🔖 Status</span></h2>
+<p>Draft.</p>
+<blockquote>
+<p>MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY
+carry their RFC 2119 and RFC 8174 meaning.
+Only when they appear in all capitals.</p>
+</blockquote>
+<hr>
+<h2 id="-document-type"><span style="color:#ffaa24">📐 Document Type</span></h2>
+<p>This is a design doc.</p>
+<p>It pins one feature.</p>
+<p>A view that browses and adds agent memories.</p>
+<p>The feature is three things.</p>
+<ul>
+<li>One new view.</li>
+<li>One read-and-write seam to the memory data plane.</li>
+<li>One secret boundary.</li>
+</ul>
+<p>The secret boundary makes it more than an ADR.</p>
+<p>It sets no contract.</p>
+<p>So it is not an SRS.</p>
+<hr>
+<h2 id="-context"><span style="color:#ffaa24">🧠 Context</span></h2>
+<p>Agents record memories.</p>
+<p>A later session starts warm.</p>
+<p>A memory is one sentence over a controlled vocabulary.</p>
+<ul>
+<li>An entity.</li>
+<li>A relation.</li>
+<li>A target entity.</li>
+<li>A work domain.</li>
+<li>The notes that complete the sentence.</li>
+</ul>
+<p>The store is the memory data plane.</p>
+<p>A Supabase table with hybrid full-text and vector search.</p>
+<ul>
+<li>You write through a <code>new_memory</code> call.</li>
+<li>You read through search and listing calls.</li>
+</ul>
+<h3 id="the-reference-prototype"><span style="color: #D2A8FF">The reference prototype</span></h3>
+<p>The feature already runs as a prototype.</p>
+<p>It lives in a sibling project, EdgeGrammar.</p>
+<p>Three Node files carry it.</p>
+<ul>
+<li><code>web.js</code></li>
+<li><code>web.html.js</code></li>
+<li><code>index.js</code></li>
+</ul>
+<p>That prototype is the reference for the interaction model.</p>
+<ul>
+<li>An entity-tabbed feed.</li>
+<li>A new-memory form over the vocabularies.</li>
+<li>A relation graph.</li>
+<li>Saved view states.</li>
+<li>A raw-JSON peek.</li>
+</ul>
+<p>The prototype is the reference, not the target.</p>
+<p>It was a Node server.</p>
+<ul>
+<li>It read JSONL files straight off local disk.</li>
+<li>It held a provider key in process.</li>
+</ul>
+<p>Those server files were later removed from EdgeGrammar.</p>
+<p>The removal was a security fix.</p>
+<p>context-reel re-platforms the interaction onto its own stack.</p>
+<ul>
+<li>SvelteKit routes as the seam.</li>
+<li>The Supabase memory plane as the store.</li>
+<li>The same secret boundary context-reel already keeps.</li>
+</ul>
+<p>The browser never holds a provider key.</p>
+<p>The browser never holds a service-role key.</p>
+<hr>
+<h2 id="-vocabulary"><span style="color: #ffaa24">📖 Vocabulary</span></h2>
+<p><strong>Memory</strong>
+One recorded sentence: entity, relation, target, work, notes.</p>
+<p><strong>Entity</strong>
+The actor, such as Claude or the Architect.</p>
+<p><strong>Relation</strong>
+The verb that joins the entity to the target.</p>
+<p><strong>Work</strong>
+The domain the memory belongs to.</p>
+<p><strong>Notes</strong>
+The body that completes the sentence.</p>
+<p><strong>Edge</strong>
+The relation, target entity, and work carried with a memory.</p>
+<p><strong>Vocabulary</strong>
+A controlled set of allowed entities, relations, and works.
+The server rejects any value outside its set.</p>
+<p><strong>Feed</strong>
+The list of memories shown for the selected entities.</p>
+<p><strong>Graph</strong>
+The relation graph drawn from the feed's edges.</p>
+<hr>
+<h2 id="-what-the-reference-does"><span style="color:#ffaa24">🪞 What The Reference Does</span></h2>
+<blockquote>
+<p>Read from the prototype.
+Keep the carry-over concrete.</p>
+</blockquote>
+<h3 id="entity-tabs"><span style="color: #D2A8FF">Entity tabs</span></h3>
+<ul>
+<li>A click selects one entity.</li>
+<li>A modified click adds or removes one.</li>
+<li>Several entities can show at once.</li>
+<li>A Collab tab shows the collaboration edges.</li>
+</ul>
+<h3 id="the-feed"><span style="color: #D2A8FF">The feed</span></h3>
+<ul>
+<li>Fetches memories for the selected entities.</li>
+<li>Dedupes by id.</li>
+<li>Sorts newest first.</li>
+<li>Caps at a limit the user sets.</li>
+<li>A relation filter narrows the fetch.</li>
+</ul>
+<h3 id="each-memory"><span style="color: #D2A8FF">Each memory</span></h3>
+<ul>
+<li>A card, collapsed by default.</li>
+<li>Shows the date.</li>
+<li>Shows the sentence of entity, relation, target, and work.</li>
+<li>Shows the notes.</li>
+<li>A control reveals the raw record.</li>
+<li>A toggle hides the whole feed.</li>
+</ul>
+<h3 id="the-form"><span style="color: #D2A8FF">The form</span></h3>
+<ul>
+<li>Four selects over the vocabularies.</li>
+<li>A Collab flag.</li>
+<li>A notes editor.</li>
+<li>A Save action.</li>
+<li>It posts the memory, then the feed refreshes.</li>
+</ul>
+<h3 id="the-graph"><span style="color: #D2A8FF">The graph</span></h3>
+<ul>
+<li>Draws the entities on a circle.</li>
+<li>Directed edges show their relations.</li>
+<li>Hover or click an entity to highlight its edges.</li>
+<li>Click the background to clear.</li>
+<li>Derived at runtime from the fetched edges.</li>
+<li>Nothing is hardcoded.</li>
+</ul>
+<h3 id="the-sidebar"><span style="color: #D2A8FF">The sidebar</span></h3>
+<ul>
+<li>Holds named saved view states.</li>
+<li>The current view state restores on reload.</li>
+</ul>
+<h3 id="shortcuts"><span style="color: #D2A8FF">Shortcuts</span></h3>
+<ul>
+<li>Focus the notes.</li>
+<li>Toggle the graph.</li>
+<li>Hide the feed.</li>
+<li>Save.</li>
+</ul>
+<p>The prototype also embedded a provider chat.</p>
+<p>It wrote a memory per turn.</p>
+<p>That is out of scope here.</p>
+<p>context-reel already owns chat.</p>
+<hr>
+<h2 id="-goals"><span style="color:#4ade80">🎯 Goals</span></h2>
+<ul>
+<li>Browse memories by entity, newest first.</li>
+<li>Narrow the feed by relation and cap its size.</li>
+<li>Read any memory's full notes and its raw record.</li>
+<li>Add a memory over the controlled vocabularies in one view.</li>
+<li>See the relation graph drawn from the memories on screen.</li>
+<li>No provider key ever reaches the browser.</li>
+<li>No service-role key ever reaches the browser.</li>
+<li>One concept has one name across UI, code, and tests.</li>
+</ul>
+<hr>
+<h2 id="-non-goals"><span style="color: #D2A8FF">🚫 Non-Goals</span></h2>
+<ul>
+<li>The Memory view does not embed a chat.</li>
+<li>The chat is its own view.</li>
+<li>The Memory view does not write a memory per chat turn.</li>
+<li>The Memory view does not read memories from local files.</li>
+<li>The store is the Supabase memory plane.</li>
+<li>The Memory view does not hold a provider key.</li>
+<li>The Memory view does not hold a service-role key.</li>
+<li>The Memory view does not hold any secret value.</li>
+<li>The Memory view does not define the vocabularies.</li>
+<li>The data plane owns them; the server is their authority.</li>
+<li>The Memory view does not build a feed row from HTML.</li>
+</ul>
+<hr>
+<h2 id="️-proposed-design"><span style="color:#ffaa24">🏗️ Proposed Design</span></h2>
+<h3 id="the-view"><span style="color: #D2A8FF">The view</span></h3>
+<ul>
+<li>A new Svelte component, <code>Memory.svelte</code>.</li>
+<li>Joins the workspace beside editor, chat, and config.</li>
+<li>Mounts once.</li>
+<li><code>workspace.view</code> shows or hides it.</li>
+<li>A view swap never reloads the page.</li>
+</ul>
+<h3 id="the-seam"><span style="color: #D2A8FF">The seam</span></h3>
+<ul>
+<li>SvelteKit routes under <code>/api/memory</code> are the only path.</li>
+<li>A read route lists memories for the selected entities.</li>
+<li>A write route records a new memory.</li>
+<li>The routes hold the publishable key in the server.</li>
+<li>The routes hold the agent identity in the server.</li>
+<li>They call the data plane's list and <code>new_memory</code> calls.</li>
+<li>The browser calls the routes, never the data plane.</li>
+<li>The browser never holds a key.</li>
+</ul>
+<h3 id="the-feed-1"><span style="color: #D2A8FF">The feed</span></h3>
+<ul>
+<li>Entity tabs drive a fetch through the read route.</li>
+<li>The result is deduped by id.</li>
+<li>The result is sorted newest first.</li>
+<li>The result is capped at the user's limit.</li>
+<li>A relation filter narrows the request.</li>
+<li>Rows render from data through Svelte markup.</li>
+<li>Rows never render from HTML strings.</li>
+</ul>
+<h3 id="the-form-1"><span style="color: #D2A8FF">The form</span></h3>
+<ul>
+<li>Four selects mirror entity, work, target, and relation.</li>
+<li>Plus a Collab flag and a notes editor.</li>
+<li>The notes editor is markdown-text-editor.</li>
+<li>The app keeps one editor.</li>
+<li>Save posts through the write route.</li>
+<li>On success the feed refreshes.</li>
+</ul>
+<h3 id="the-graph-1"><span style="color: #D2A8FF">The graph</span></h3>
+<ul>
+<li>A toggle draws an SVG relation graph.</li>
+<li>The entities sit on a circle.</li>
+<li>Directed edges show their relations.</li>
+<li>Hover and click highlight an entity's edges.</li>
+<li>The data is derived at runtime from the edges.</li>
+</ul>
+<h3 id="view-state"><span style="color: #D2A8FF">View state</span></h3>
+<ul>
+<li>Selected entities, limit, filter, and graph toggle persist.</li>
+<li>They persist as client state.</li>
+<li>The view restores across a reload.</li>
+<li>This matches how the workspace keeps its other state.</li>
+</ul>
+<h3 id="chords"><span style="color: #D2A8FF">Chords</span></h3>
+<ul>
+<li>Memory actions register in the chord registry.</li>
+<li>Each is an <code>Alt+Shift+&lt;key&gt;</code> command.</li>
+<li>Command identity stays apart from the key.</li>
+<li>This matches every other context-reel shortcut.</li>
+</ul>
+<hr>
+<h2 id="-requirements"><span style="color:#ffaa24">✅ Requirements</span></h2>
+<blockquote>
+<p>Each requirement is one shape, one capability.
+If a test cannot mark it pass or fail, it is not here.</p>
+</blockquote>
+<h3 id="the-secret-boundary"><span style="color: #D2A8FF">The secret boundary</span></h3>
+<ul>
+<li>The Memory view MUST read and write only through a route.</li>
+<li>The route MUST hold the publishable key in the server.</li>
+<li>The route MUST hold the agent identity in the server.</li>
+<li>The Memory view MUST NOT hold a provider key.</li>
+<li>The Memory view MUST NOT hold a service-role key.</li>
+<li>The Memory view MUST NOT display or log a key.</li>
+</ul>
+<h3 id="the-feed-2"><span style="color: #D2A8FF">The feed</span></h3>
+<ul>
+<li>The Memory view MUST list memories for the selected entities.</li>
+<li>The Memory view MUST let the user select one entity.</li>
+<li>The Memory view MUST let the user select several entities.</li>
+<li>The Memory view MUST sort the feed newest first.</li>
+<li>The Memory view MUST remove duplicate memories by id.</li>
+<li>The Memory view MUST cap the feed at the user's limit.</li>
+<li>On a relation filter, the Memory view MUST narrow the feed.</li>
+<li>The Memory view MUST show entity, relation, target, work, notes.</li>
+<li>The Memory view MUST let the user reveal the raw record.</li>
+</ul>
+<h3 id="the-form-2"><span style="color: #D2A8FF">The form</span></h3>
+<ul>
+<li>The Memory view MUST offer entity, work, target, and relation as selects over the vocabularies.</li>
+<li>On save, the Memory view MUST post through the write route.</li>
+<li>On a rejected value, the Memory view MUST show the error.</li>
+<li>On that rejection, the Memory view MUST NOT clear the form.</li>
+<li>On a successful save, the Memory view MUST refresh the feed.</li>
+</ul>
+<h3 id="the-graph-2"><span style="color: #D2A8FF">The graph</span></h3>
+<ul>
+<li>On graph toggle, the Memory view MUST draw the entities and their relation edges.</li>
+<li>The Memory view MUST derive the graph from the fetched edges, not a hardcoded set.</li>
+<li>On highlight, the Memory view MUST emphasize that entity's edges.</li>
+</ul>
+<h3 id="should-and-may"><span style="color:#4ade80">Should and may</span></h3>
+<ul>
+<li>The feed SHOULD restore its entities, limit, and filter across a reload.</li>
+<li>The Memory view MAY let the user save and restore named view states.</li>
+<li>The Memory view MAY offer a search over the full-text and vector index.</li>
+</ul>
+
+</body>
+</html>
