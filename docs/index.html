@@ -606,6 +606,9 @@ p img[src*="shields.io"] {
   border-radius: 6px;
   background: var(--os-surface);
   color: var(--os-blue);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .os-hub-grid a:hover {
@@ -618,6 +621,35 @@ p img[src*="shields.io"] {
   margin: 22px 0 8px;
   color: var(--os-muted);
   font-weight: 700;
+}
+
+.os-hub-acc {
+  margin: 28px 0 6px;
+}
+
+.os-hub-acc > summary {
+  cursor: pointer;
+  list-style: none;
+  color: var(--os-gold);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.os-hub-acc > summary::-webkit-details-marker {
+  display: none;
+}
+
+.os-hub-acc > summary::before {
+  content: "\25B8  ";
+  color: var(--os-gold);
+}
+
+.os-hub-acc[open] > summary::before {
+  content: "\25BE  ";
+}
+
+.os-hub-acc[open] > summary {
+  margin-bottom: 10px;
 }
 </style>
 </head>
@@ -638,12 +670,12 @@ p img[src*="shields.io"] {
 <img src="https://img.shields.io/badge/edition-Core-2b579a" alt="Edition">
 <img src="https://img.shields.io/badge/license-MIT-2ea44f" alt="License"></p>
 <p class="os-demo-cap">Build the SharpDown Markdown</p>
-<video width="720" height="480" controls>
+<video width="480" height="360" controls>
   <source src="./video/SharpDownBuild.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 <p class="os-demo-cap">Visualize the Ouptut</p>
-<video width="720" height="480" controls>
+<video width="480" height="360" controls>
   <source src="./video/SharpDownMarkdownOut.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
@@ -745,28 +777,68 @@ pattern are wrapped in a fenced code block. Everything else falls away.</p>
 <nav class="os-hub" aria-label="Documentation">
 <h2 id="documentation">Documentation</h2>
 
-<p class="os-hub-group">Sharpdown</p>
+<details class="os-hub-acc">
+<summary>Sharpdown (1)</summary>
 <ul class="os-hub-grid">
 <li><a href="functions/sharpdown.html">Sharpdown</a></li>
 </ul>
+</details>
 
-<p class="os-hub-group">Skills</p>
+<details class="os-hub-acc">
+<summary>Rules (26)</summary>
+<ul class="os-hub-grid">
+<li><a href="rules/ApprovedVerbs.html" title="Use Only Approved Verbs">Approved Verbs</a></li>
+<li><a href="rules/CaseInsensitivePreserving.html" title="Make Cmdlets Case-Insensitive and Case-Preserving">Case-Insensitive Preserving</a></li>
+<li><a href="rules/CmdletAttribute.html" title="Specify the Cmdlet Attribute">Cmdlet Attribute</a></li>
+<li><a href="rules/CodingParameters.html" title="Coding Parameters">Coding Parameters</a></li>
+<li><a href="rules/ConfirmationRequests.html" title="Support Confirmation Requests">Confirmation Requests</a></li>
+<li><a href="rules/DefiningObjects.html" title="Defining Objects">Defining Objects</a></li>
+<li><a href="rules/DeriveFromCmdletClass.html" title="Derive from the Cmdlet or PSCmdlet Classes">Derive From Cmdlet Class</a></li>
+<li><a href="rules/DeployViaModule.html" title="Use a Windows PowerShell Module to Deploy Your Cmdlets">Deploy Via Module</a></li>
+<li><a href="rules/DocumentOutputObjects.html" title="Document Output Objects">Document Output Objects</a></li>
+<li><a href="rules/ForceParameter.html" title="Support Force Parameter for Interactive Sessions">Force Parameter</a></li>
+<li><a href="rules/IComparable.html" title="Implement the IComparable Interface">IComparable</a></li>
+<li><a href="rules/IllegalCmdletNameCharacters.html" title="Cmdlet Names: Characters That Cannot Be Used">Illegal Name Characters</a></li>
+<li><a href="rules/InputFromPipeline.html" title="Support Input from the Pipeline">Input From Pipeline</a></li>
+<li><a href="rules/InputProcessingMethod.html" title="Override an Input Processing Method">Input Processing Method</a></li>
+<li><a href="rules/MiddleOfPipeline.html" title="Implement for the Middle of a Pipeline">Middle Of Pipeline</a></li>
+<li><a href="rules/NoRetainedOutputHandles.html" title="Do Not Retain Handles to Output Objects">No Retained Output Handles</a></li>
+<li><a href="rules/ObjectMembersAsParameters.html" title="Define Object Members to Be Used as Parameters">Object Members As Parameters</a></li>
+<li><a href="rules/OutputTypeAttribute.html" title="Specify the OutputType Attribute">OutputType Attribute</a></li>
+<li><a href="rules/PowerShellPaths.html" title="Support Windows PowerShell Paths">PowerShell Paths</a></li>
+<li><a href="rules/ProcessRecordMethod.html" title="Support the ProcessRecord Method">ProcessRecord Method</a></li>
+<li><a href="rules/ReservedParameterNames.html" title="Parameter Names That Cannot Be Used">Reserved Parameter Names</a></li>
+<li><a href="rules/RobustErrorHandling.html" title="Handle Errors Robustly">Robust Error Handling</a></li>
+<li><a href="rules/StandardMembers.html" title="Define Standard Members">Standard Members</a></li>
+<li><a href="rules/UpdateDisplayInformation.html" title="Update Display Information">Update Display Information</a></li>
+<li><a href="rules/WildcardCharacters.html" title="Support Wildcard Characters">Wildcard Characters</a></li>
+<li><a href="rules/WriteSingleRecords.html" title="Write Single Records to the Pipeline">Write Single Records</a></li>
+</ul>
+</details>
+
+<details class="os-hub-acc">
+<summary>Skills (3)</summary>
 <ul class="os-hub-grid">
 <li><a href="skills/sharpdown.html">Sharpdown</a></li>
 <li><a href="skills/spec-kit.html">Spec Kit</a></li>
 <li><a href="skills/verticalflow.html">Vertical Flow</a></li>
 </ul>
+</details>
 
-<p class="os-hub-group">Spec</p>
+<details class="os-hub-acc">
+<summary>Spec (1)</summary>
 <ul class="os-hub-grid">
 <li><a href="spec/context-reel-memory.spec.html">ContextReel Memory Spec</a></li>
 </ul>
+</details>
 
-<p class="os-hub-group">Tests</p>
+<details class="os-hub-acc">
+<summary>Tests (2)</summary>
 <ul class="os-hub-grid">
 <li><a href="test/sharpdown-module-tests.html">Module Tests</a></li>
 <li><a href="test/sharpdown-tests.html">SharpDown Tests</a></li>
 </ul>
+</details>
 </nav>
 
 <h2 id="license">License</h2>
