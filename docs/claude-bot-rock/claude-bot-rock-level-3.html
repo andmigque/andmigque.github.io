@@ -71,13 +71,35 @@
   button.mini:active{transform:translateY(2px); box-shadow:0 1px 0 #11132c;}
   .hint{font-size:6px; color:#6b6f9c; text-align:center; line-height:1.7;
     max-width:472px; margin-top:2px;}
-</style>
+  .cbr-back{
+    position:fixed; top:10px; left:10px; z-index:20;
+    font-family:inherit; font-size:7px; letter-spacing:.5px;
+    color:var(--cream); text-decoration:none;
+    padding:8px 10px; border-radius:6px;
+    background:#2a2f5e; box-shadow:0 3px 0 #11132c;
+    border:1px solid rgba(255,207,90,.35);
+  }
+  .cbr-back:hover{ color:var(--gold); border-color:var(--gold); }
+  .cbr-back:active{ transform:translateY(2px); box-shadow:0 1px 0 #11132c; }  .cbr-nav{ position:fixed; top:10px; right:10px; z-index:20; display:flex; gap:6px; }
+  .cbr-nav a{
+    font-family:inherit; font-size:7px; letter-spacing:.5px;
+    color:var(--cream); text-decoration:none;
+    padding:8px 10px; border-radius:6px;
+    background:#2a2f5e; box-shadow:0 3px 0 #11132c;
+    border:1px solid rgba(255,207,90,.35);
+  }
+  .cbr-nav a:hover{ color:var(--gold); border-color:var(--gold); }
+  .cbr-nav a:active{ transform:translateY(2px); box-shadow:0 1px 0 #11132c; }</style>
 </head>
 <body>
+<a class="cbr-back" href="../index.html#claude-bot-rock">&#9664;&nbsp;DOCS</a>
+<nav class="cbr-nav"><a href="claude-bot-rock-level-2.html">&#9664;&nbsp;PREV</a><a href="claude-bot-rock-level-4.html">NEXT&nbsp;&#9654;</a></nav>
+
 
 <div class="titlebar">
   <div class="big">CLAUDE&nbsp;BOT&nbsp;ROCK</div>
-  <div class="sub">LEVEL 3 — THE DARK RUN</div>
+  <div class="sub">LEVEL 3</div>
+  <div class="sub" style="color:#ffcf5a">THE DARK RUN</div>
 </div>
 
 <div id="stage">

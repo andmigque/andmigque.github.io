@@ -76,13 +76,35 @@
   button.mini:active{transform:translateY(2px); box-shadow:0 1px 0 #11132c;}
   .hint{font-size:6px; color:#8b8fc0; text-align:center; line-height:1.7;
     max-width:472px; margin-top:2px;}
-</style>
+  .cbr-back{
+    position:fixed; top:10px; left:10px; z-index:20;
+    font-family:inherit; font-size:7px; letter-spacing:.5px;
+    color:var(--cream); text-decoration:none;
+    padding:8px 10px; border-radius:6px;
+    background:#2a2f5e; box-shadow:0 3px 0 #11132c;
+    border:1px solid rgba(255,207,90,.35);
+  }
+  .cbr-back:hover{ color:var(--gold); border-color:var(--gold); }
+  .cbr-back:active{ transform:translateY(2px); box-shadow:0 1px 0 #11132c; }  .cbr-nav{ position:fixed; top:10px; right:10px; z-index:20; display:flex; gap:6px; }
+  .cbr-nav a{
+    font-family:inherit; font-size:7px; letter-spacing:.5px;
+    color:var(--cream); text-decoration:none;
+    padding:8px 10px; border-radius:6px;
+    background:#2a2f5e; box-shadow:0 3px 0 #11132c;
+    border:1px solid rgba(255,207,90,.35);
+  }
+  .cbr-nav a:hover{ color:var(--gold); border-color:var(--gold); }
+  .cbr-nav a:active{ transform:translateY(2px); box-shadow:0 1px 0 #11132c; }</style>
 </head>
 <body>
+<a class="cbr-back" href="../index.html#claude-bot-rock">&#9664;&nbsp;DOCS</a>
+<nav class="cbr-nav"><a href="claude-bot-rock-level-1.html">&#9664;&nbsp;PREV</a><a href="claude-bot-rock-level-3.html">NEXT&nbsp;&#9654;</a></nav>
+
 
 <div class="titlebar">
   <div class="big">CLAUDE&nbsp;BOT&nbsp;ROCK</div>
-  <div class="sub">LEVEL 2 — THE GEMINI DROP</div>
+  <div class="sub">LEVEL 2</div>
+  <div class="sub" style="color:#ffcf5a">EVERLASTING GROK STOPPER</div>
 </div>
 
 <div id="stage">
@@ -105,7 +127,7 @@
 </div>
 
 <div class="hint">
-  RIDE THE PLATFORMS &middot; PRESS &#9660; TO DROP THROUGH &middot; REACH THE GEMINI<br>
+  RIDE THE PLATFORMS &middot; PRESS &#9660; TO DROP THROUGH &middot; REACH THE Jemmen Eye<br>
   KEYS: ARROWS / WASD &nbsp;&middot;&nbsp; M MUTE &nbsp;&middot;&nbsp; R RESET
 </div>
 
@@ -671,16 +693,16 @@ function render(){
     drawCenter([
       {t:'CLAUDE BOT ROCK', y:108, size:19, col:'#d97757'},
       {t:'LEVEL 2', y:140, size:11, col:'#ffcf5a'},
-      {t:'THE GEMINI DROP', y:160, size:9, col:'#9fc6ff'},
+      {t:'THE EVERLASTING GROK STOPPER', y:160, size:9, col:'#9fc6ff'},
       {t:'FALL IN. RIDE THE SLIDERS.', y:204, size:8, col:'#f4f1e4'},
-      {t:'DODGE THE SLAM. GRAB THE GEMINI.', y:220, size:7, col:'#f4f1e4'},
+      {t:'DODGE THE SLAM. GRAB THE JEMMEN EYE.', y:220, size:7, col:'#f4f1e4'},
       {t:(Math.floor(gt/30)%2?'> PRESS ANY KEY / TAP <':'  PRESS ANY KEY / TAP  '),
         y:272, size:9, col:'#ffcf5a'},
     ]);
   } else if(state==='win'){
     drawCenter([
       {t:'LEVEL 2 CLEAR', y:128, size:18, col:'#9fc6ff'},
-      {t:'GEMINI SECURED', y:158, size:8, col:'#bfe0ff'},
+      {t:'JEMMEN EYE SECURED', y:158, size:8, col:'#bfe0ff'},
       {t:'BOOPS TAKEN  '+boops, y:188, size:9, col:'#ff5a4a'},
       {t:(Math.floor(gt/30)%2?'> TAP TO PLAY AGAIN <':'  TAP TO PLAY AGAIN  '),
         y:240, size:8, col:'#f4f1e4'},
