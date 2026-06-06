@@ -639,71 +639,12 @@ language declaration so the source file is the document.</p>
 <p><img src="https://img.shields.io/badge/PowerShell-7+-5391FE" alt="PowerShell">
 <img src="https://img.shields.io/badge/edition-Core-2b579a" alt="Edition">
 <img src="https://img.shields.io/badge/license-MIT-2ea44f" alt="License"></p>
-
-<nav class="os-hub" aria-label="Documentation">
-<h2 id="documentation">Documentation</h2>
-
-<p class="os-hub-group">Sharpdown</p>
-<ul class="os-hub-grid">
-<li><a href="sharpdown.html">Sharpdown</a></li>
-</ul>
-
-<p class="os-hub-group">Rules</p>
-<ul class="os-hub-grid">
-<li><a href="rules/ApprovedVerbs.html">Use Only Approved Verbs</a></li>
-<li><a href="rules/CaseInsensitivePreserving.html">Make Cmdlets Case-Insensitive and Case-Preserving</a></li>
-<li><a href="rules/CmdletAttribute.html">Specify the Cmdlet Attribute</a></li>
-<li><a href="rules/CodingParameters.html">Coding Parameters</a></li>
-<li><a href="rules/ConfirmationRequests.html">Support Confirmation Requests</a></li>
-<li><a href="rules/DefiningObjects.html">Defining Objects</a></li>
-<li><a href="rules/DeriveFromCmdletClass.html">Derive from the Cmdlet or PSCmdlet Classes</a></li>
-<li><a href="rules/DeployViaModule.html">Use a Windows PowerShell Module to Deploy Your Cmdlets</a></li>
-<li><a href="rules/DocumentOutputObjects.html">Document Output Objects</a></li>
-<li><a href="rules/ForceParameter.html">Support Force Parameter for Interactive Sessions</a></li>
-<li><a href="rules/IComparable.html">Implement the IComparable Interface</a></li>
-<li><a href="rules/IllegalCmdletNameCharacters.html">Cmdlet Names: Characters That Cannot Be Used</a></li>
-<li><a href="rules/InputFromPipeline.html">Support Input from the Pipeline</a></li>
-<li><a href="rules/InputProcessingMethod.html">Override an Input Processing Method</a></li>
-<li><a href="rules/MiddleOfPipeline.html">Implement for the Middle of a Pipeline</a></li>
-<li><a href="rules/NoRetainedOutputHandles.html">Do Not Retain Handles to Output Objects</a></li>
-<li><a href="rules/ObjectMembersAsParameters.html">Define Object Members to Be Used as Parameters</a></li>
-<li><a href="rules/OutputTypeAttribute.html">Specify the OutputType Attribute</a></li>
-<li><a href="rules/PowerShellPaths.html">Support Windows PowerShell Paths</a></li>
-<li><a href="rules/ProcessRecordMethod.html">Support the ProcessRecord Method</a></li>
-<li><a href="rules/ReservedParameterNames.html">Parameter Names That Cannot Be Used</a></li>
-<li><a href="rules/RobustErrorHandling.html">Handle Errors Robustly</a></li>
-<li><a href="rules/StandardMembers.html">Define Standard Members</a></li>
-<li><a href="rules/UpdateDisplayInformation.html">Update Display Information</a></li>
-<li><a href="rules/WildcardCharacters.html">Support Wildcard Characters</a></li>
-<li><a href="rules/WriteSingleRecords.html">Write Single Records to the Pipeline</a></li>
-</ul>
-
-<p class="os-hub-group">Skills</p>
-<ul class="os-hub-grid">
-<li><a href="skills/sharpdown.html">Sharpdown (skill)</a></li>
-<li><a href="skills/spec-kit.html">Spec Kit</a></li>
-<li><a href="skills/verticalflow.html">Vertical Flow</a></li>
-</ul>
-
-<p class="os-hub-group">Spec</p>
-<ul class="os-hub-grid">
-<li><a href="spec/context-reel-memory.spec.html">context-reel memory spec</a></li>
-</ul>
-
-<p class="os-hub-group">Tests</p>
-<ul class="os-hub-grid">
-<li><a href="tests/sharpdown-module-tests.html">Module.Tests</a></li>
-<li><a href="tests/sharpdown-tests.html">SharpDown.Tests</a></li>
-</ul>
-</nav>
-
-<h2 id="demos">Demos</h2>
-<p class="os-demo-cap">Building the SharpDown docs</p>
+<p class="os-demo-cap">Build the SharpDown Markdown</p>
 <video width="720" height="480" controls>
   <source src="./video/SharpDownBuild.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
-<p class="os-demo-cap">Rendering the Markdown output</p>
+<p class="os-demo-cap">Visualize the Ouptut</p>
 <video width="720" height="480" controls>
   <source src="./video/SharpDownMarkdownOut.mp4" type="video/mp4">
 Your browser does not support the video tag.
@@ -711,7 +652,18 @@ Your browser does not support the video tag.
 <h2 id="install">Install</h2>
 <pre class="hljs"><code><div><span class="hljs-built_in">Install-Module</span> Sharpdown <span class="hljs-literal">-Scope</span> CurrentUser
 </div></code></pre>
-<p>The module targets PowerShell 7 or later on the Core edition. Every function is cross-platform.</p>
+<p>Convert a single source file to Markdown.</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">Import-Module</span> Sharpdown
+<span class="hljs-built_in">ConvertTo-SharpDown</span> <span class="hljs-literal">-Language</span> CSharp <span class="hljs-literal">-Path</span> .\src\Widget.cs <span class="hljs-literal">-OutPath</span> .\Generated\Docs\Widget.md
+</div></code></pre>
+<p>Mirror a source tree.</p>
+<blockquote>
+<p><code>-Recurse</code> walks the tree, skips build output, and rebuilds the folder layout</p>
+</blockquote>
+<p>For HTTP endpoint files where the doc IS the wire contract, suppress the auto-generated
+declaration fences with <code>-API</code>. Only marker lines emit.</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">ConvertTo-SharpDown</span> <span class="hljs-literal">-Language</span> JavaScript <span class="hljs-literal">-Path</span> .\ <span class="hljs-literal">-OutPath</span> .\Generated\Docs\ <span class="hljs-literal">-Recurse</span>
+</div></code></pre>
 <h2 id="how-it-works">How it works</h2>
 <p>Each language marks a doc comment with a four-character prefix. Lines that start with the marker
 have the marker stripped and pass through as Markdown. Lines matching the language's declaration
@@ -752,19 +704,6 @@ pattern are wrapped in a fenced code block. Everything else falls away.</p>
 </tr>
 </tbody>
 </table>
-<h2 id="quick-start">Quick start</h2>
-<p>Convert a single source file to Markdown.</p>
-<pre class="hljs"><code><div><span class="hljs-built_in">Import-Module</span> Sharpdown
-<span class="hljs-built_in">ConvertTo-SharpDown</span> <span class="hljs-literal">-Language</span> CSharp <span class="hljs-literal">-Path</span> .\src\Widget.cs <span class="hljs-literal">-OutPath</span> .\Generated\Docs\Widget.md
-</div></code></pre>
-<p>Mirror a source tree.</p>
-<blockquote>
-<p><code>-Recurse</code> walks the tree, skips build output, and rebuilds the folder layout</p>
-</blockquote>
-<p>For HTTP endpoint files where the doc IS the wire contract, suppress the auto-generated
-declaration fences with <code>-API</code>. Only marker lines emit.</p>
-<pre class="hljs"><code><div><span class="hljs-built_in">ConvertTo-SharpDown</span> <span class="hljs-literal">-Language</span> JavaScript <span class="hljs-literal">-Path</span> .\ <span class="hljs-literal">-OutPath</span> .\Generated\Docs\ <span class="hljs-literal">-Recurse</span>
-</div></code></pre>
 <h2 id="functions">Functions</h2>
 <table>
 <thead>
@@ -804,6 +743,34 @@ declaration fences with <code>-API</code>. Only marker lines emit.</p>
 </tr>
 </tbody>
 </table>
+
+<nav class="os-hub" aria-label="Documentation">
+<h2 id="documentation">Documentation</h2>
+
+<p class="os-hub-group">Sharpdown</p>
+<ul class="os-hub-grid">
+<li><a href="sharpdown.html">Sharpdown</a></li>
+</ul>
+
+<p class="os-hub-group">Skills</p>
+<ul class="os-hub-grid">
+<li><a href="skills/sharpdown.html">Sharpdown</a></li>
+<li><a href="skills/spec-kit.html">Spec Kit</a></li>
+<li><a href="skills/verticalflow.html">Vertical Flow</a></li>
+</ul>
+
+<p class="os-hub-group">Spec</p>
+<ul class="os-hub-grid">
+<li><a href="spec/context-reel-memory.spec.html">ContextReel Memory Spec</a></li>
+</ul>
+
+<p class="os-hub-group">Tests</p>
+<ul class="os-hub-grid">
+<li><a href="tests/sharpdown-module-tests.html">Module Tests</a></li>
+<li><a href="tests/sharpdown-tests.html">SharpDown Tests</a></li>
+</ul>
+</nav>
+
 <h2 id="license">License</h2>
 <p>MIT. See <a href="LICENSE">LICENSE</a>.</p>
 
