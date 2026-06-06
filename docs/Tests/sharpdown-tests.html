@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>README.md</title>
+<title>SharpDown.Tests.md</title>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 
 <style>
@@ -584,120 +584,119 @@ p img[src*="shields.io"] {
           : 'default'
     });
   </script>
-<h1 id="sharpdown">Sharpdown</h1>
+ <h1 style="color: #DCA657;">🧪 SharpDown.Tests</h1>
 <blockquote>
-<p>Polyglot documentation extraction for PowerShell. Sharpdown lifts marker-prefixed comments
-out of C#, SQL, JavaScript, TypeScript, and PowerShell source into Markdown, fencing each
-language declaration so the source file is the document.</p>
+<p>Pester unit tests for <code>ConvertTo-SharpDown</code>. Ported from the legacy Test-SharpDown.ps1 smoke harness.</p>
 </blockquote>
-<p><img src="https://img.shields.io/badge/PowerShell-7+-5391FE" alt="PowerShell">
-<img src="https://img.shields.io/badge/edition-Core-2b579a" alt="Edition">
-<img src="https://img.shields.io/badge/license-MIT-2ea44f" alt="License"></p>
-<h2 id="install">Install</h2>
-<pre class="hljs"><code><div><span class="hljs-built_in">Install-Module</span> Sharpdown <span class="hljs-literal">-Scope</span> CurrentUser
+<p>The temp-path helpers live in BeforeAll because Pester 5 only exposes functions defined there
+to the It blocks at run time. Top-level function definitions run during discovery and vanish.</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">New-TempLeafPath</span></span>
 </div></code></pre>
-<p>The module targets PowerShell 7 or later on the Core edition. Every function is cross-platform.</p>
-<h2 id="how-it-works">How it works</h2>
-<p>Each language marks a doc comment with a four-character prefix. Lines that start with the marker
-have the marker stripped and pass through as Markdown. Lines matching the language's declaration
-pattern are wrapped in a fenced code block. Everything else falls away.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Language</th>
-<th style="text-align:left">Marker</th>
-<th style="text-align:left">Fence</th>
-<th style="text-align:left">Extensions</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>CSharp</code></td>
-<td style="text-align:left"><code>////</code></td>
-<td style="text-align:left"><code>csharp</code></td>
-<td style="text-align:left"><code>.cs</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>Sql</code></td>
-<td style="text-align:left"><code>----</code></td>
-<td style="text-align:left"><code>sql</code></td>
-<td style="text-align:left"><code>.sql</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>JavaScript</code></td>
-<td style="text-align:left"><code>////</code></td>
-<td style="text-align:left"><code>javascript</code></td>
-<td style="text-align:left"><code>.js</code>, <code>.mjs</code>, <code>.ts</code>, <code>.tsx</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>PowerShell</code></td>
-<td style="text-align:left"><code>####</code></td>
-<td style="text-align:left"><code>powershell</code></td>
-<td style="text-align:left"><code>.ps1</code>, <code>.psm1</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="quick-start">Quick start</h2>
-<p>Convert a single source file to Markdown.</p>
-<pre class="hljs"><code><div><span class="hljs-built_in">Import-Module</span> Sharpdown
-<span class="hljs-built_in">ConvertTo-SharpDown</span> <span class="hljs-literal">-Language</span> CSharp <span class="hljs-literal">-Path</span> .\src\Widget.cs <span class="hljs-literal">-OutPath</span> .\Generated\Docs\Widget.md
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">New-TempWorkspace</span></span>
 </div></code></pre>
-<p>Mirror a source tree.</p>
-<blockquote>
-<p><code>-Recurse</code> walks the tree, skips build output, and rebuilds the folder layout</p>
-</blockquote>
-<p>For HTTP endpoint files where the doc IS the wire contract, suppress the auto-generated
-declaration fences with <code>-API</code>. Only marker lines emit.</p>
-<pre class="hljs"><code><div><span class="hljs-built_in">ConvertTo-SharpDown</span> <span class="hljs-literal">-Language</span> JavaScript <span class="hljs-literal">-Path</span> .\ <span class="hljs-literal">-OutPath</span> .\Generated\Docs\ <span class="hljs-literal">-Recurse</span>
+<hr>
+ <h2 style="color: #DCA657;">CSharp file mode</h2>
+<p>Single-file conversion of C# sources.</p>
+<p><b style="color: #D2A8FF;">Cases</b></p>
+<pre class="hljs"><code><div>Describe <span class="hljs-string">&#x27;CSharp file mode&#x27;</span>
 </div></code></pre>
-<h2 id="functions">Functions</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Function</th>
-<th style="text-align:left">Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>ConvertTo-SharpDown</code></td>
-<td style="text-align:left">Convert a single source file or a tree of sources to Markdown.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="development">Development</h2>
-<p>The suite is Pester 5. The docs are regenerated by the module's own <code>ConvertTo-SharpDown</code>.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Command</th>
-<th style="text-align:left">What it does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>Invoke-Pester .\Tests</code></td>
-<td style="text-align:left">Run the Pester 5 unit suite.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>Test-ModuleManifest .\Sharpdown.psd1</code></td>
-<td style="text-align:left">Validate the manifest.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>ConvertTo-SharpDown -Language PowerShell -Path . -OutPath .\docs -Recurse</code></td>
-<td style="text-align:left">Regenerate the SharpDown Markdown under <code>docs</code>.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="vertical-flow">Vertical Flow</h2>
-<p>Sharpdown produces markdown that is vertically optimized.
-Rendered Sharpdown should consume little horizontal bandwidth.</p>
 <ul>
-<li><a href="skills/vertical-flow/SKILL.md">SKILL</a></li>
-<li><img src="https://raw.githubusercontent.com/andmigque/OptimusSharp.StaticAssets/refs/heads/main/vertical-sharpdown.png" alt="Vertical Flow"></li>
+<li>Strips the <code>////</code> marker and fences the declaration lines.</li>
 </ul>
-<h2 id="license">License</h2>
-<p>MIT. See <a href="LICENSE">LICENSE</a>.</p>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;Strips //// markers and fences declaration lines&#x27;</span>
+</div></code></pre>
+<ul>
+<li>Drops lines that are neither markers nor declarations.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;Skips lines that are neither markers nor declarations&#x27;</span>
+</div></code></pre>
+<ul>
+<li>Throws when the source path is not a file.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;Throws when File path is not a file&#x27;</span>
+</div></code></pre>
+<ul>
+<li>Throws when <code>-OutPath</code> points at an existing directory.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;Throws when File OutPath points to an existing directory&#x27;</span>
+</div></code></pre>
+<ul>
+<li>Warns when the source holds no SharpDown content.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;Warns when source has no SharpDown content&#x27;</span>
+</div></code></pre>
+<hr>
+ <h2 style="color: #DCA657;">Language configs</h2>
+<p>Per-language markers, fences, and the <code>-API</code> switch.</p>
+<p><b style="color: #D2A8FF;">Cases</b></p>
+<pre class="hljs"><code><div>Describe <span class="hljs-string">&#x27;Language configs&#x27;</span>
+</div></code></pre>
+<ul>
+<li>SQL: the <code>----</code> marker fences <code>CREATE</code> statements.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;Sql marker ---- fences CREATE statements&#x27;</span>
+</div></code></pre>
+<ul>
+<li>PowerShell: the <code>####</code> marker fences function declarations.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;PowerShell marker #### fences function declarations&#x27;</span>
+</div></code></pre>
+<ul>
+<li>JavaScript: the <code>////</code> marker fences <code>export class</code> declarations.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;JavaScript marker //// fences export class declarations&#x27;</span>
+</div></code></pre>
+<ul>
+<li><code>-API</code> suppresses every auto-generated declaration fence.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;-API suppresses all auto-generated declaration fences&#x27;</span>
+</div></code></pre>
+<ul>
+<li>JavaScript keeps top-level function and type decls, drops interior locals.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;JavaScript drops interior const/let locals but keeps top-level function and type declarations&#x27;</span>
+</div></code></pre>
+<hr>
+ <h2 style="color: #DCA657;">Directory mode</h2>
+<p>Recursive tree walking, mirroring, and pipeline input.</p>
+<p><b style="color: #D2A8FF;">Cases</b></p>
+<pre class="hljs"><code><div>Describe <span class="hljs-string">&#x27;Directory mode&#x27;</span>
+</div></code></pre>
+<ul>
+<li>Throws when the <code>-Recurse</code> path is not a directory.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;Throws when -Recurse path is not a directory&#x27;</span>
+</div></code></pre>
+<ul>
+<li>Throws when <code>-OutPath</code> points at an existing file.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;Throws when -Recurse OutPath points to an existing file&#x27;</span>
+</div></code></pre>
+<ul>
+<li>Without <code>-Recurse</code>, a directory path throws as not-a-file.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;Without -Recurse, a directory path throws as not-a-file&#x27;</span>
+</div></code></pre>
+<ul>
+<li>Mirrors the tree, stripping <code>src/</code> and project-name legs.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;Mirrors tree, strips src/ and project name legs&#x27;</span>
+</div></code></pre>
+<ul>
+<li>Accepts a piped <code>DirectoryInfo</code> as <code>-Path</code> under <code>-Recurse</code>.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;Accepts a piped DirectoryInfo as -Path under -Recurse&#x27;</span>
+</div></code></pre>
+<ul>
+<li>Processes multiple piped directories in one invocation.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;Processes multiple directories piped into a single invocation&#x27;</span>
+</div></code></pre>
+<ul>
+<li>Warns when no files match the language extensions.</li>
+</ul>
+<pre class="hljs"><code><div>It <span class="hljs-string">&#x27;Warns when directory has no matching extensions&#x27;</span>
+</div></code></pre>
 
 </body>
 </html>

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>VerticalFlow.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 style="color: #DCA657;">🎆 Vertical Flow</h1>
+<blockquote>
+<p>Vertical flow is the discipline of making rendered Markdown read cleanly.
+It optimizes the page the reader sees, not only the source text you type.</p>
+</blockquote>
+<hr>
+<table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fit the viewport</td>
+<td>No horizontal displacement.</td>
+</tr>
+<tr>
+<td>Stack the hierarchy</td>
+<td>The eye always has a next place to land.</td>
+</tr>
+<tr>
+<td>Chunk one idea</td>
+<td>The reader never carries two burdens at once.</td>
+</tr>
+<tr>
+<td>Anchor with code</td>
+<td>Syntax becomes a visual landmark.</td>
+</tr>
+</tbody>
+</table>
+<p>Vertical flow is not sparse text.</p>
+<p>Vertical flow is not tables versus lists.</p>
+<p>Vertical flow is the combination that gives the best rendered output.</p>
+<h2 style="color: #DCA657;">Rendering Goal</h2>
+<p>The rendered page is the artifact.</p>
+<p>Source formatting matters because it shapes the render.</p>
+<p>Rendered clarity wins when source neatness and output quality disagree.</p>
+<p>Use the form that makes the page easiest to scan:</p>
+<table>
+<thead>
+<tr>
+<th>Content Shape</th>
+<th>Best Form</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compare two axes</td>
+<td>Narrow table.</td>
+</tr>
+<tr>
+<td>Show ordered steps</td>
+<td>Numbered list.</td>
+</tr>
+<tr>
+<td>Group related facts</td>
+<td>Bulleted list.</td>
+</tr>
+<tr>
+<td>Teach syntax</td>
+<td>Code block.</td>
+</tr>
+<tr>
+<td>Mark a section</td>
+<td>Colored heading.</td>
+</tr>
+</tbody>
+</table>
+<p>Use this selector when choosing a shape:</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Select-VerticalShape</span></span> {
+    <span class="hljs-keyword">param</span>(
+        [<span class="hljs-type">Parameter</span>(<span class="hljs-type">Mandatory</span>)]
+        [<span class="hljs-type">ValidateSet</span>(<span class="hljs-string">&#x27;Compare&#x27;</span>, <span class="hljs-string">&#x27;Procedure&#x27;</span>, <span class="hljs-string">&#x27;Group&#x27;</span>, <span class="hljs-string">&#x27;Syntax&#x27;</span>, <span class="hljs-string">&#x27;Warning&#x27;</span>)]
+        [<span class="hljs-built_in">string</span>]<span class="hljs-variable">$ContentKind</span>
+    )
+
+    <span class="hljs-keyword">switch</span> (<span class="hljs-variable">$ContentKind</span>) {
+        <span class="hljs-string">&#x27;Compare&#x27;</span> {
+            <span class="hljs-string">&#x27;Table&#x27;</span>
+        }
+        <span class="hljs-string">&#x27;Procedure&#x27;</span> {
+            <span class="hljs-string">&#x27;NumberedList&#x27;</span>
+        }
+        <span class="hljs-string">&#x27;Group&#x27;</span> {
+            <span class="hljs-string">&#x27;BulletList&#x27;</span>
+        }
+        <span class="hljs-string">&#x27;Syntax&#x27;</span> {
+            <span class="hljs-string">&#x27;CodeBlock&#x27;</span>
+        }
+        <span class="hljs-string">&#x27;Warning&#x27;</span> {
+            <span class="hljs-string">&#x27;RedLandmark&#x27;</span>
+        }
+    }
+}
+</div></code></pre>
+<h2 style="color: #DCA657;">Viewport Contract</h2>
+<p>The reader should never need horizontal navigation to understand the document.</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headers</td>
+<td>40 to 60 characters.</td>
+</tr>
+<tr>
+<td>Prose</td>
+<td>60 to 80 characters.</td>
+</tr>
+<tr>
+<td>Tables</td>
+<td>Two or three narrow columns.</td>
+</tr>
+<tr>
+<td>Lists</td>
+<td>One idea per item.</td>
+</tr>
+<tr>
+<td>Code</td>
+<td>As narrow as the syntax allows.</td>
+</tr>
+</tbody>
+</table>
+<p>Long code can exist.</p>
+<p>Long prose should not.</p>
+<p>Score a draft before calling it done:</p>
+<pre class="hljs"><code><div><span class="hljs-variable">$verticalFlowScore</span> = [<span class="hljs-type">ordered</span>]<span class="hljs-selector-tag">@</span>{
+    HeaderUnderSixty = <span class="hljs-variable">$true</span>
+    ProseUnderEighty = <span class="hljs-variable">$true</span>
+    TablesAreNarrow = <span class="hljs-variable">$true</span>
+    CodeAnchorsSyntax = <span class="hljs-variable">$true</span>
+    OneIdeaPerBlock = <span class="hljs-variable">$true</span>
+}
+</div></code></pre>
+<p>Any <code>$false</code> value is a rewrite signal.</p>
+<h2 style="color: #DCA657;">Visual Language</h2>
+<p>Use repeated landmarks.</p>
+<p>Readers learn the page through rhythm.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Shape</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primary section</td>
+<td>Gold heading.</td>
+</tr>
+<tr>
+<td>Supporting idea</td>
+<td>Short paragraph.</td>
+</tr>
+<tr>
+<td>Comparison</td>
+<td>Compact table.</td>
+</tr>
+<tr>
+<td>Procedure</td>
+<td>Numbered steps.</td>
+</tr>
+<tr>
+<td>Syntax</td>
+<td>Fenced code block.</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>Red landmark.</td>
+</tr>
+</tbody>
+</table>
+<p>Keep the same visual role in the same visual shape.</p>
+<p>Do not make the reader relearn the page section by section.</p>
+<h2 style="color: #DCA657;">Gold Heading Pattern</h2>
+<p>Use gold headings as navigation anchors.</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color: #DCA657;&quot;</span>&gt;</span>🎆 Document Title<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color: #DCA657;&quot;</span>&gt;</span>Section Title<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+</div></code></pre>
+<p>The heading should name the thing.</p>
+<p>Do not use decorative headings that hide the content.</p>
+<p>Use this section skeleton:</p>
+<pre class="hljs"><code><div><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color: #DCA657;&quot;</span>&gt;</span></span>Section Name<span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span>
+
+One sentence states the point.
+
+| Signal | Meaning |
+| --- | --- |
+| Concrete thing | Concrete meaning. |
+
+One sentence closes the block.
+</div></code></pre>
+<h2 style="color: #DCA657;">Compact Table Pattern</h2>
+<p>Use a table when comparison is the point.</p>
+<pre class="hljs"><code><div>| Signal | Meaning |
+| --- | --- |
+| Gold heading | Navigation. |
+| Code block | Syntax anchor. |
+| Blank line | Concept boundary. |
+</div></code></pre>
+<p>Keep tables narrow.</p>
+<p>Prefer two columns.</p>
+<p>Use three only when the third column earns its width.</p>
+<p>Do not do this:</p>
+<pre class="hljs"><code><div>| Signal | Meaning | Notes | Reader Action |
+| --- | --- | --- | --- |
+| Gold heading | Navigation | Use everywhere | Scan section starts |
+</div></code></pre>
+<p>Do this:</p>
+<pre class="hljs"><code><div>| Signal | Meaning |
+| --- | --- |
+| Gold heading | Navigation. |
+</div></code></pre>
+<h2 style="color: #DCA657;">List Pattern</h2>
+<p>Use a list when items belong to one concept.</p>
+<pre class="hljs"><code><div><span class="hljs-bullet">-</span> one signal
+<span class="hljs-bullet">-</span> one meaning
+<span class="hljs-bullet">-</span> one action
+</div></code></pre>
+<p>One item should carry one idea.</p>
+<p>If an item needs a paragraph, split the concept.</p>
+<p>Do not do this:</p>
+<pre class="hljs"><code><div><span class="hljs-bullet">-</span> Use headings for navigation, tables for comparison, lists for groups,
+  and code blocks for syntax because each one solves a different job.
+</div></code></pre>
+<p>Do this:</p>
+<pre class="hljs"><code><div><span class="hljs-bullet">-</span> Headings mark navigation.
+<span class="hljs-bullet">-</span> Tables compare.
+<span class="hljs-bullet">-</span> Lists group facts.
+<span class="hljs-bullet">-</span> Code blocks anchor syntax.
+</div></code></pre>
+<h2 style="color: #DCA657;">Code Anchor Pattern</h2>
+<p>Use code blocks when syntax is the thing being taught.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">switch</span> (<span class="hljs-variable">$Task</span>) {
+    <span class="hljs-string">&#x27;test&#x27;</span> {
+        <span class="hljs-built_in">Invoke-Pester</span> &lt;<span class="hljs-built_in">test-root</span>&gt;
+    }
+    <span class="hljs-string">&#x27;docs&#x27;</span> {
+        <span class="hljs-built_in">ConvertTo-SharpDown</span> <span class="hljs-literal">-Path</span> &lt;source<span class="hljs-literal">-root</span>&gt; <span class="hljs-literal">-OutPath</span> &lt;output<span class="hljs-literal">-root</span>&gt; <span class="hljs-literal">-Recurse</span>
+    }
+}
+</div></code></pre>
+<p>Code blocks are visual anchors.</p>
+<p>They should clarify structure, not decorate the page.</p>
+<p>Prefer code that encodes the rule:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">if</span> (<span class="hljs-variable">$Line</span>.Length <span class="hljs-operator">-gt</span> <span class="hljs-number">80</span> <span class="hljs-operator">-and</span> <span class="hljs-operator">-not</span> <span class="hljs-variable">$LineIsCode</span>) {
+    <span class="hljs-string">&#x27;Rewrite&#x27;</span>
+}
+</div></code></pre>
+<p>Avoid code that is only atmospheric:</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">Write-Host</span> <span class="hljs-string">&#x27;Looks clean&#x27;</span>
+</div></code></pre>
+<h2 style="color: #DCA657;">Chunking Pattern</h2>
+<p>Each block should carry one primary concept.</p>
+<table>
+<thead>
+<tr>
+<th>Block</th>
+<th>Carries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Heading</td>
+<td>The destination.</td>
+</tr>
+<tr>
+<td>Paragraph</td>
+<td>The claim.</td>
+</tr>
+<tr>
+<td>Table</td>
+<td>The comparison.</td>
+</tr>
+<tr>
+<td>List</td>
+<td>The grouped facts.</td>
+</tr>
+<tr>
+<td>Code</td>
+<td>The syntax.</td>
+</tr>
+</tbody>
+</table>
+<p>Whitespace separates concepts.</p>
+<p>Do not use whitespace as decoration.</p>
+<p>Use one block per concept:</p>
+<pre class="hljs"><code><div><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color: #DCA657;&quot;</span>&gt;</span></span>One Concept<span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span>
+
+One claim.
+
+One supporting shape.
+
+One closing sentence.
+</div></code></pre>
+<h2 style="color: #DCA657;">Progressive Density</h2>
+<p>Move from identity to proof.</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One</td>
+<td>Name the document.</td>
+</tr>
+<tr>
+<td>Two</td>
+<td>State the rule.</td>
+</tr>
+<tr>
+<td>Three</td>
+<td>Show the pattern.</td>
+</tr>
+<tr>
+<td>Four</td>
+<td>Prove with an example.</td>
+</tr>
+</tbody>
+</table>
+<p>The reader should understand the page before reaching the example.</p>
+<p>The example should confirm the rule, not rescue it.</p>
+<h2 style="color: #DCA657;">Anti Patterns</h2>
+<p><b style="color: #C22514;">Avoid</b></p>
+<ul>
+<li>Wide prose blocks.</li>
+<li>Wide tables with repeated phrases.</li>
+<li>Dense bullets with multiple ideas.</li>
+<li>Headings that end in colons.</li>
+<li>Decorative code blocks.</li>
+<li>Sparse text that looks clean but reads thin.</li>
+<li>Source formatting that damages rendered output.</li>
+</ul>
+<h2 style="color: #DCA657;">Validation</h2>
+<p>Read the rendered page.</p>
+<p>Ask these questions:</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Passing Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Can I read without zooming?</td>
+<td>Yes.</td>
+</tr>
+<tr>
+<td>Can I scroll without losing context?</td>
+<td>Yes.</td>
+</tr>
+<tr>
+<td>Do headings form a map?</td>
+<td>Yes.</td>
+</tr>
+<tr>
+<td>Do tables compare instead of sprawl?</td>
+<td>Yes.</td>
+</tr>
+<tr>
+<td>Do code blocks anchor syntax?</td>
+<td>Yes.</td>
+</tr>
+</tbody>
+</table>
+<p>The final test is visual.</p>
+<p>If the render looks worse, the source is not done.</p>
+<p>Run this review loop:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$Section</span> <span class="hljs-keyword">in</span> <span class="hljs-variable">$RenderedDocument</span>.Sections) {
+    <span class="hljs-built_in">Test-HeaderMap</span> <span class="hljs-variable">$Section</span>
+    <span class="hljs-built_in">Test-LineLength</span> <span class="hljs-variable">$Section</span>
+    <span class="hljs-built_in">Test-ShapeChoice</span> <span class="hljs-variable">$Section</span>
+    <span class="hljs-built_in">Test-ConceptBoundary</span> <span class="hljs-variable">$Section</span>
+}
+</div></code></pre>
+<p>The names are pseudo-code.
+The discipline is real.</p>
+
+</body>
+</html>

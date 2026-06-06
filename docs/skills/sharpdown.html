@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SharpDown.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 style="color: #DCA657;">🎆 Sharpdown</h1>
+<blockquote>
+<p>Sharpdown is a source-as-document convention.
+Marker comments become Markdown.
+Declaration lines become fenced code.</p>
+</blockquote>
+<hr>
+<table>
+<thead>
+<tr>
+<th>Read This First</th>
+<th>Why It Matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source file</td>
+<td>The comments you type.</td>
+</tr>
+<tr>
+<td>Rendered Markdown</td>
+<td>The document that ships.</td>
+</tr>
+<tr>
+<td>Test fixture</td>
+<td>The behavior contract.</td>
+</tr>
+</tbody>
+</table>
+<p>The source and the render are a pair.</p>
+<p>Do not optimize one while making the other worse.</p>
+<p>The output must read cleanly, top to bottom.</p>
+<h2 style="color: #DCA657;">Quick Start</h2>
+<pre class="hljs"><code><div><span class="hljs-built_in">Import-Module</span> &lt;module<span class="hljs-literal">-manifest</span>&gt; <span class="hljs-literal">-Force</span>
+<span class="hljs-built_in">ConvertTo-SharpDown</span> <span class="hljs-literal">-Language</span> PowerShell <span class="hljs-literal">-Path</span> &lt;source<span class="hljs-operator">-file</span>&gt; <span class="hljs-literal">-OutPath</span> &lt;output<span class="hljs-operator">-file</span>&gt;
+</div></code></pre>
+<p>File mode is the default.
+Add <code>-Recurse</code> to mirror a directory tree.</p>
+<h2 style="color: #DCA657;">Renderer Contract</h2>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Marker line</td>
+<td>Emits Markdown.</td>
+</tr>
+<tr>
+<td>Bare marker</td>
+<td>Emits a blank line.</td>
+</tr>
+<tr>
+<td>Declaration line</td>
+<td>Emits a fenced code block.</td>
+</tr>
+<tr>
+<td>Everything else</td>
+<td>Drops out.</td>
+</tr>
+</tbody>
+</table>
+<p>The renderer trims each line before classification.
+Only spaces after the marker survive into the output.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">#### - top level</span>
+<span class="hljs-comment">####     - nested once</span>
+<span class="hljs-comment">####         - nested twice</span>
+</div></code></pre>
+<h2 style="color: #DCA657;">Markers</h2>
+<table>
+<thead>
+<tr>
+<th>Language</th>
+<th>Marker</th>
+<th>Carrier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PowerShell</code></td>
+<td><code>####</code></td>
+<td>four hashtags</td>
+</tr>
+<tr>
+<td><code>CSharp</code></td>
+<td><code>////</code></td>
+<td>four slashes</td>
+</tr>
+<tr>
+<td><code>JavaScript</code></td>
+<td><code>////</code></td>
+<td>four slashes</td>
+</tr>
+<tr>
+<td><code>Sql</code></td>
+<td><code>----</code></td>
+<td>four dashes</td>
+</tr>
+</tbody>
+</table>
+<p>PowerShell keeps <code>#</code> for ordinary comments.
+C# keeps <code>///</code> for XML docs.
+SQL keeps <code>--</code> for ordinary comments.</p>
+<h2 style="color: #DCA657;">Visual Language</h2>
+<p>Use the same landmarks as the generated docs.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Fragment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File title</td>
+<td><code>&lt;h1 style=&quot;color: #DCA657;&quot;&gt;🎆 Title&lt;/h1&gt;</code></td>
+</tr>
+<tr>
+<td>Symbol title</td>
+<td><code>&lt;h2 style=&quot;color: #DCA657;&quot;&gt;Verb-Noun&lt;/h2&gt;</code></td>
+</tr>
+<tr>
+<td>Inputs</td>
+<td><code>&lt;b style=&quot;color: #D2A8FF;&quot;&gt;Parameters&lt;/b&gt;</code></td>
+</tr>
+<tr>
+<td>Outputs</td>
+<td><code>&lt;b style=&quot;color: #369FFF;&quot;&gt;Returns&lt;/b&gt;</code></td>
+</tr>
+<tr>
+<td>Failures</td>
+<td><code>&lt;b style=&quot;color: #C22514;&quot;&gt;Throws&lt;/b&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>Gold is navigation.
+Purple is input.
+Blue is output.
+Red is failure.</p>
+<p>Never invent a new color for the same job.</p>
+<h2 style="color: #DCA657;">File Header Pattern</h2>
+<pre class="hljs"><code><div><span class="hljs-comment">#### &lt;h1 style=&quot;color: #DCA657;&quot;&gt;🎆 ModuleName&lt;/h1&gt;</span>
+<span class="hljs-comment">####</span>
+<span class="hljs-comment">#### &gt; One sentence on what this file is.</span>
+<span class="hljs-comment">####</span>
+<span class="hljs-comment">#### ---</span>
+<span class="hljs-comment">####</span>
+<span class="hljs-comment">#### | Function | Purpose |</span>
+<span class="hljs-comment">#### | --- | --- |</span>
+<span class="hljs-comment">#### | `Verb-Noun` | One line on what it does. |</span>
+</div></code></pre>
+<p>Keep summary tables narrow.
+Two columns are usually enough.</p>
+<h2 style="color: #DCA657;">Function Pattern</h2>
+<pre class="hljs"><code><div><span class="hljs-comment">#### &lt;h2 style=&quot;color: #DCA657;&quot;&gt;Verb-Noun&lt;/h2&gt;</span>
+<span class="hljs-comment">####</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Verb-Noun</span></span> {
+    <span class="hljs-comment">#### One sentence on what it does.</span>
+    <span class="hljs-comment">####</span>
+    <span class="hljs-comment">#### &lt;b style=&quot;color: #D2A8FF;&quot;&gt;Parameters&lt;/b&gt;</span>
+    <span class="hljs-comment">####</span>
+    <span class="hljs-keyword">param</span>(
+        <span class="hljs-comment">#### - `[string]`: __Name__</span>
+        <span class="hljs-comment">####     - *What the parameter is.*</span>
+        [<span class="hljs-type">Parameter</span>(<span class="hljs-type">Mandatory</span>)][<span class="hljs-built_in">string</span>]<span class="hljs-variable">$Name</span>
+    )
+    <span class="hljs-comment">#### &lt;b style=&quot;color: #369FFF;&quot;&gt;Returns&lt;/b&gt;</span>
+    <span class="hljs-comment">#### - `[PSCustomObject]`</span>
+    <span class="hljs-comment">####     - *What comes back.*</span>
+}
+<span class="hljs-comment">#### ---</span>
+</div></code></pre>
+<p>The declaration has no marker.
+The renderer removes the trailing <code>{</code>.
+The signature becomes a fenced block.</p>
+<h2 style="color: #DCA657;">Parameter Shape</h2>
+<pre class="hljs"><code><div><span class="hljs-comment">#### - `[type]`: __Name__</span>
+<span class="hljs-comment">####     - *Description, italic, one sentence.*</span>
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Shape</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type</td>
+<td>Backticked square brackets.</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>Bold underscore.</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Italic nested bullet.</td>
+</tr>
+</tbody>
+</table>
+<p>Use one sentence per description.
+Use one field per row.</p>
+<h2 style="color: #DCA657;">Return Shape</h2>
+<pre class="hljs"><code><div><span class="hljs-comment">#### - `[PSCustomObject]`</span>
+<span class="hljs-comment">####     - `[string]`: __Source__</span>
+<span class="hljs-comment">####         - *Redacted source path.*</span>
+<span class="hljs-comment">####     - `[int]`: __Lines__</span>
+<span class="hljs-comment">####         - *Number of lines written.*</span>
+</div></code></pre>
+<p>Return fields mirror parameters.
+They nest one level deeper.</p>
+<h2 style="color: #DCA657;">Throws Shape</h2>
+<pre class="hljs"><code><div><span class="hljs-comment">#### &lt;b style=&quot;color: #C22514;&quot;&gt;Throws&lt;/b&gt;</span>
+<span class="hljs-comment">#### - When `Path` is not a file.</span>
+<span class="hljs-comment">#### - When `OutPath` is an existing directory.</span>
+<span class="hljs-keyword">if</span> (<span class="hljs-operator">-not</span> (<span class="hljs-built_in">Test-Path</span> <span class="hljs-variable">$Path</span> <span class="hljs-literal">-PathType</span> Leaf)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-string">&quot;Path is not a file.&quot;</span>
+}
+</div></code></pre>
+<p>The guard clauses drop out.
+The red landmark and bullets stay.</p>
+<h2 style="color: #DCA657;">Declaration Keywords</h2>
+<p>CSharp:</p>
+<pre class="hljs"><code><div>public, protected, internal, static,
+abstract, sealed, override, async
+</div></code></pre>
+<p>JavaScript:</p>
+<pre class="hljs"><code><div>export, import, class, function,
+async function, type, interface
+</div></code></pre>
+<p>PowerShell:</p>
+<pre class="hljs"><code><div>function, filter, class, enum,
+workflow, describe, it
+</div></code></pre>
+<p>Sql:</p>
+<pre class="hljs"><code><div>CREATE, ALTER, DROP, SELECT, INSERT,
+UPDATE, DELETE, GRANT, REVOKE, WITH,
+COMMENT, CALL, TRUNCATE, MERGE
+</div></code></pre>
+<p>Use <code>-API</code> when the document is the wire contract.
+In API mode, only marker lines emit.</p>
+<h2 style="color: #DCA657;">Pester Test Pattern</h2>
+<p>Use the same cadence as a module file.</p>
+<table>
+<thead>
+<tr>
+<th>Test Element</th>
+<th>Sharpdown Shape</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File header</td>
+<td>Gold <code>&lt;h1&gt;</code> and short blockquote.</td>
+</tr>
+<tr>
+<td>Suite</td>
+<td>Gold <code>&lt;h2&gt;</code> before <code>Describe</code>.</td>
+</tr>
+<tr>
+<td>Cases</td>
+<td>Purple <code>Cases</code> landmark.</td>
+</tr>
+<tr>
+<td>Assertion</td>
+<td>One bullet before each <code>It</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><code>Describe</code> and <code>It</code> fence on their own.
+Write the heading, description, cases label, and assertion bullets.</p>
+<h2 style="color: #DCA657;">Vertical Flow</h2>
+<p>Vertical flow is not sparse text.</p>
+<p>Vertical flow is readable rendered Markdown.</p>
+<p>Use tables when comparison is the clearest shape.
+Use lists when order or grouping is the clearest shape.
+Use code blocks when syntax is the anchor.
+Use whitespace when concepts need separation.</p>
+<p>The test is the rendered page.</p>
+<h2 style="color: #DCA657;">Regenerate</h2>
+<p>Never hand-edit generated Markdown.</p>
+<p>Change the source comments.
+Then regenerate.</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">Import-Module</span> &lt;module<span class="hljs-literal">-manifest</span>&gt; <span class="hljs-literal">-Force</span>
+<span class="hljs-built_in">ConvertTo-SharpDown</span> <span class="hljs-literal">-Language</span> PowerShell <span class="hljs-literal">-Path</span> &lt;source<span class="hljs-operator">-file</span>&gt; <span class="hljs-literal">-OutPath</span> &lt;output<span class="hljs-operator">-file</span>&gt;
+</div></code></pre>
+<p>For a tree:</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">ConvertTo-SharpDown</span> <span class="hljs-literal">-Language</span> PowerShell <span class="hljs-literal">-Path</span> &lt;source<span class="hljs-literal">-root</span>&gt; <span class="hljs-literal">-OutPath</span> &lt;output<span class="hljs-literal">-root</span>&gt; <span class="hljs-literal">-Recurse</span>
+</div></code></pre>
+<p>Read the generated doc before calling the source done.</p>
+<p>If a color, blank line, table, or list looks wrong,
+fix the marker comments in the source.</p>
+<h2 style="color: #DCA657;">Tests</h2>
+<pre class="hljs"><code><div><span class="hljs-built_in">Invoke-Pester</span> &lt;<span class="hljs-built_in">test-root</span>&gt;
+</div></code></pre>
+<p>Grow the tests first when adding a language, marker, or declaration pattern.</p>
+
+</body>
+</html>
