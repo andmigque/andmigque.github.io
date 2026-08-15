@@ -1,0 +1,4 @@
+# agents.txt
+# Standard: https://agents-txt.com
+
+Skills: https://raw.githubusercontent.com/andmigque/OptimusSharp.PSSecurity/refs/heads/feature/consistency-cleanup/Skill/ps-security/SKILL.md
