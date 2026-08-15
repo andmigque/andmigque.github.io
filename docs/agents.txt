@@ -5,7 +5,7 @@ Skills: https://raw.githubusercontent.com/andmigque/OptimusSharp.PSSecurity/refs
 Skills: https://agents-txt.com/skills/adopt-agents-txt/SKILL.md
 Skills: https://raw.githubusercontent.com/andmigque/Memory/refs/heads/main/skills/get-memory/SKILL.md
 Skills: https://raw.githubusercontent.com/andmigque/Memory/refs/heads/main/skills/new-memory/SKILL.md
-Skills: https://github.com/andmigque/Memory/blob/main/skills/search-memory/SKILL.md
+Skills: https://raw.githubusercontent.com/andmigque/Memory/refs/heads/main/skills/search-memory/SKILL.md
 Skills: https://raw.githubusercontent.com/andmigque/Sharpdown/refs/heads/main/Skills/sharpdown/SKILL.md
 Skills: https://raw.githubusercontent.com/andmigque/Sharpdown/refs/heads/main/Skills/spec-kit/SKILL.md
 Skills: https://raw.githubusercontent.com/andmigque/Sharpdown/refs/heads/main/Skills/vertical-flow/SKILL.md
