@@ -4,7 +4,7 @@
   "standard": "https://agents-txt.com",
   "skills": [
     {
-      "url": "https://raw.githubusercontent.com/andmigque/OptimusSharp.PSSecurity/refs/heads/main/Skill/ps-security/SKILL.md",
+      "url": "https://raw.githubusercontent.com/andmigque/PSSecurity/refs/heads/main/Skill/ps-security/SKILL.md",
       "description": "PowerShell security module: AES encryption and decryption, SHA hashing and file integrity, secure RNG, certificate generation, TLS, ACL inspection, and UAC hardening."
     },
     {
@@ -25,7 +25,7 @@
     },
     {
       "url": "https://raw.githubusercontent.com/andmigque/Sharpdown/refs/heads/main/Skills/sharpdown/SKILL.md",
-      "description": "A polyglot documentation convention that generates markdown directly from source comments, using per-language markers: #### in PowerShell, //// in C# and JavaScript, ---- in SQL. Regenerate from source; never hand-edit the render."
+      "description": "A polyglot documentation convention that generates markdown directly from source comments. Regenerate from source, never hand-edit the render."
     },
     {
       "url": "https://raw.githubusercontent.com/andmigque/Sharpdown/refs/heads/main/Skills/spec-kit/SKILL.md",
