@@ -1,0 +1,39 @@
+{
+  "$schema": "https://agents-txt.com/schema/agents-json/v1.0.json",
+  "version": "1.0",
+  "standard": "https://agents-txt.com",
+  "skills": [
+    {
+      "url": "https://raw.githubusercontent.com/andmigque/OptimusSharp.PSSecurity/refs/heads/main/Skill/ps-security/SKILL.md",
+      "description": "PowerShell security module: AES encryption and decryption, SHA hashing and file integrity, secure RNG, certificate generation, TLS, ACL inspection, and UAC hardening."
+    },
+    {
+      "url": "https://agents-txt.com/skills/adopt-agents-txt/SKILL.md",
+      "description": "Guides a developer through adopting the agents.txt standard on their own website: walks the spec, picks an adoption path (hand-write, generator, or library), and validates the result."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/andmigque/Memory/refs/heads/main/skills/get-memory/SKILL.md",
+      "description": "Returns the newest memory rows, newest first, with no query. Grounds an agent in the latest activity across every entity, or scoped to one actor."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/andmigque/Memory/refs/heads/main/skills/new-memory/SKILL.md",
+      "description": "Records one memory row through the new_memory RPC so the next session starts warm: milestones, decisions, corrections, failures, and patterns worth carrying forward."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/andmigque/Memory/refs/heads/main/skills/search-memory/SKILL.md",
+      "description": "Runs a semantic search over the agent memory data plane and returns the closest memories, so an agent grounds in prior decisions and earlier failures before acting."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/andmigque/Sharpdown/refs/heads/main/Skills/sharpdown/SKILL.md",
+      "description": "A polyglot documentation convention that generates markdown directly from source comments, using per-language markers: #### in PowerShell, //// in C# and JavaScript, ---- in SQL. Regenerate from source; never hand-edit the render."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/andmigque/Sharpdown/refs/heads/main/Skills/spec-kit/SKILL.md",
+      "description": "Writing, editing, reviewing, and scoping software specifications: design docs, SRS, RFC, ADR, PRD, requirements lists, acceptance criteria, EARS requirements, RFC 2119 language, and Given-When-Then tests."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/andmigque/Sharpdown/refs/heads/main/Skills/vertical-flow/SKILL.md",
+      "description": "Shaping Markdown and generated documentation for readability: viewport width, visual hierarchy, scan rhythm, chunking, line length, tables, lists, code anchors, and mobile readability."
+    }
+  ]
+}
